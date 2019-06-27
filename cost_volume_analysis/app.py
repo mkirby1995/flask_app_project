@@ -24,3 +24,6 @@ def create_app():
       return 'Data refreshed'
 
     return app
+
+# link to notbook for cva
+"""https://colab.research.google.com/drive/1bK6oaYlRxzKEy1yoGhGmPlcIQI7A_LXJ#scrollTo=7cPePPxa_o80"""
