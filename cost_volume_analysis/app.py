@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from .model import DB, Widget, add_widgets, widgets
+from .model import DB, Widget, add_widgets, products
 
 def create_app():
     """Create and configure instance of flask application"""
@@ -11,14 +11,16 @@ def create_app():
 
     @app.route('/')
     def root():
-        widgets = Widget.query.all()
-        return render_template('base.html', title = 'Home', widgets = widgets)
+        widgs = Widget.query.all()
+        return render_template('base.html', title = 'Home', widgets = widgs)
 
     @app.route('/refresh')
     def refresh():
       """Pull fresh data from dict"""
       DB.drop_all()
       DB.create_all()
-      add_widgets(widgets)
+      add_widgets(products)
       DB.session.commit()
       return 'Data refreshed'
+
+    return app

@@ -9,19 +9,22 @@ class Widget(DB.Model):
     price_point = DB.Column(DB.Integer)
 
     def __repr__(self):
-      return "<Widget {}, name:{}>".format(self.name)
+      return "<Product {}>".format(self.name)
 
 
-widgets = [
-    ('sample widget', 1.00, 0.50, 2.50)
+products = [
+    ('sample widget_1', 1.00, 0.50, 2.50),
+    ('sample widget_2', 1.00, 0.50, 2.50),
+    ('sample widget_3', 1.00, 0.50, 2.50),
+    ('sample widget_4', 1.00, 0.50, 2.50),
 ]
 
 
 def add_widgets(widget_list):
     for _ in range(len(widget_list)):
-        widget = Widget(
+        product = Widget(
             name = widget_list[_][0],
             fixed_costs = widget_list[_][1],
             variable_costs = widget_list[_][2],
             price_point = widget_list[_][3])
-        DB.session.add(widget)
+        DB.session.add(product)
