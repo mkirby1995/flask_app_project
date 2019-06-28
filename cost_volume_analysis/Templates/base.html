@@ -1,15 +1,41 @@
 <html>
-    <head>
-        <title>Cost-Volume Analysis - {{ title }}</title>
-    </head>
-    <body>
-        <h1>Cost-Volume Analysis</h1>
-        <p>Widgets</p>
+  <head>
+    <title>Cost-Volume Analysis - {{ title }}</title>
+    <link rel="stylesheet" href="https://unpkg.com/picnic"/>
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="brand"><span>Cost-Volume Analysis</span></a>
+
+      <!-- responsive-->
+      <input id="bmenub" type="checkbox" class="show">
+      <label for="bmenub" class="burger pseudo button">Menu</label>
+
+      <div class="menu">
+        <a href="/refresh" class="button warning">Update Products</a>
+      </div>
+    </nav>
+
+    <article class="flex two" style="padding: 3em 1em;">
+      {% block content %}
+      <div>
+        <p>Products</p>
 
         <ul>
             {% for widget in widgets %}
+            <a href="/product/{{ widget.name }}"><span class="stack">{{ widget.name }}</span></a>
             <li>{{widget}}</li>
             {% endfor %}
+            <form action="/product" method="post">
+              <input type="text" name="name" placeholder="Product Name">
+              <input type="text" name="fixed_costs" placeholder="Fixed Costs">
+              <input type="text" name="variable_costs" placeholder="Variable Costs">
+              <input type="text" name="price_point" placeholder="Price Point">
+              <input type="submit" value="Add Product">
+            </form>
         </ul>
-    </body>
+      </div>
+      {% endblock %}
+    </article>
+  </body>
 </html>

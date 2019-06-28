@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from .model import DB, Widget, add_widgets, products
+from .model import DB, Widget, upload_widgets, products, add_widget
 
 def create_app():
     """Create and configure instance of flask application"""
@@ -19,9 +19,26 @@ def create_app():
       """Pull fresh data from dict"""
       DB.drop_all()
       DB.create_all()
-      add_widgets(products)
+      upload_widgets(products)
       DB.session.commit()
       return 'Data refreshed'
+
+    @app.route('/product', methods = ['POST'])
+    @app.route('/product/<name>', methods = ['GET'])
+    def product(name = None, message = ''):
+        product_name = name or request.values['widget_name']
+        fixed_costs = fixed_costs or request.values['widget_fixed_costs']
+        variable_costs = variable_costs or request.values['widget_variable_costs']
+        price_point = price_point or request.values['widget_price_point']
+        if request.method == 'POST':
+            add_widget(name, fixed_costs, variable_costs, price_point)
+            message = "{} successfully added!".format(product_name)
+        return render_template('product.html',
+                               title = product_name,
+                               fixed_costs = fixed_costs,
+                               variable_costs = variable_costs,
+                               price_point = price_point)
+
 
     return app
 
