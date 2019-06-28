@@ -19,20 +19,24 @@
     <article class="flex two" style="padding: 3em 1em;">
       {% block content %}
       <div>
-        <p>Products</p>
+        <h2>Products</h2>
 
         <ul>
             {% for widget in widgets %}
             <a href="/product/{{ widget.name }}"><span class="stack">{{ widget.name }}</span></a>
-            <li>{{widget}}</li>
             {% endfor %}
-            <form action="/product" method="post">
-              <input type="text" name="name" placeholder="Product Name">
-              <input type="text" name="fixed_costs" placeholder="Fixed Costs">
-              <input type="text" name="variable_costs" placeholder="Variable Costs">
-              <input type="text" name="price_point" placeholder="Price Point">
-              <input type="submit" value="Add Product">
-            </form>
+        </ul>
+      </div>
+      <div>
+        <h2>Add Product</h2>
+        <ul>
+          <form action="/product" method="post">
+            <input type="text" name="name" placeholder="Product Name">
+            <input type="number" name="fixed_costs" placeholder="Fixed Costs">
+            <input type="number" name="variable_costs" placeholder="Variable Costs">
+            <input type="number" name="price_point" placeholder="Price Point">
+            <input type="submit" value="Add Product">
+          </form>
         </ul>
       </div>
       {% endblock %}

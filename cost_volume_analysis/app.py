@@ -27,17 +27,22 @@ def create_app():
     @app.route('/product/<name>', methods = ['GET'])
     def product(name = None, message = ''):
         product_name = name or request.values['widget_name']
-        fixed_costs = fixed_costs or request.values['widget_fixed_costs']
-        variable_costs = variable_costs or request.values['widget_variable_costs']
-        price_point = price_point or request.values['widget_price_point']
-        if request.method == 'POST':
-            add_widget(name, fixed_costs, variable_costs, price_point)
-            message = "{} successfully added!".format(product_name)
+        product = Widget.query.filter(Widget.name == product_name).first()
+        fixed = "Fixed Costs: ${}".format(product.fixed_costs)
+        variable = "Variable Costs: ${}".format(product.variable_costs)
+        price = "Price Point: ${}".format(product.price_point)
+        try:
+            if request.method == 'POST':
+                #add_widget(name, f_costs, v_costs, price_point)
+                message = "{} successfully added!".format(product_name)
+        except Exception as e:
+            message = "Error"
         return render_template('product.html',
                                title = product_name,
-                               fixed_costs = fixed_costs,
-                               variable_costs = variable_costs,
-                               price_point = price_point)
+                               fix = fixed,
+                               var = variable,
+                               pri = price,
+                               message = message)
 
 
     return app

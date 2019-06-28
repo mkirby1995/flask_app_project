@@ -29,11 +29,14 @@ def upload_widgets(widget_list):
             variable_costs = widget_list[_][2],
             price_point = widget_list[_][3])
         DB.session.add(product)
+        DB.session.commit()
 
-def add_widget(name):
+
+def add_widget(name, fixed_costs, variable_costs, price_point):
     product = Widget(
         name = name,
         fixed_costs = fixed_costs,
         variable_costs = variable_costs,
         price_point = price_point)
     DB.session.add(product)
+    DB.session.commit()
